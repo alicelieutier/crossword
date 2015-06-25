@@ -7,7 +7,6 @@ Use your own words and run
 ```
 python crossword.py
 ```
+This is a greedy algorithm, with some randomness to it, so each run gives a different solution. Jsut run it until you get an interesting one.
 
 I originally wrote this in python 3, but it seems to work in python 2.7 on my machine.
-
-
