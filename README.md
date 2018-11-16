@@ -1,13 +1,36 @@
 # crossword
 Greedy python 3 crossword generator script that tries to place words from a list inside a grid.
 
-I made this for my best friends bachelorette weekend, thus the French wedding themed words in the example.
+This project was developed for fun. It is neither optimised nor super efficient.
 
-Use your own words and run
+## usage
+
+1. Create a word file containing one word on each line, like this:
+
 ```
-python crossword.py
+river
+otter
+crossword
 ```
 
-I originally wrote this in python 3, but it seems to work in python 2.7 on my machine.
+2. Run the programme using
+
+```
+python crossword.py <your_word_file>
+```
+
+It will display the words arranged in a grid, and possibly a list of unused words if it was not able to place them all.
+
+The placement is random each time, so try again until happy with the result.
+
+### Example output:
+```
+
+C R O S S W O R D  
+            T      
+            T      
+      R I V E R    
+            R      
 
 
+```

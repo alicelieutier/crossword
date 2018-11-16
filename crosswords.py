@@ -1,6 +1,7 @@
 """
 Helper to create a grid of crosswords from a list of words
 """
+import sys
 import random
 
 class Grid:
@@ -29,14 +30,17 @@ class Grid:
     self.tries += 1
     for word in self.words:
       if (word not in self.used_words):
-        #print('{}: Trying to add {}'.format(self.tries, word))
         word_was_added = self.__try_word(word)
         if (word_was_added):
           self.used_words.add(word)
     if self.tries < self.MAX_NB_OF_TRIES:
       self.fill_grid()
     else:
-      print(self.words - self.used_words)
+      unused_words = self.words - self.used_words
+      if len(unused_words) > 0:
+          print(
+            'Unused words: ' + ', '.join(unused_words)
+          )
 
 
   def __try_word(self, word):
@@ -176,16 +180,11 @@ class Grid:
 
 if __name__ == '__main__':
 
-  words = [
-    'ysaline', 'jean', 'mariage', 'bisou', 'evjf',
-    'biscarosse', 'ocean', 'mariage', 'voyage', 'creme',
-    'plage', 'creme', 'maillot', 'sable', 'robe',
-    'tongs', 'serviette', 'pareo', 'lunettes', 'soleil',
-    'bungalow', 'ceremonie', 'mairie', 'gamins',
-    'deco', 'brunch', 'casserole', 'alliance', 'karaoke',
-    'rugby', 'excel', 'montreal', 'train', 'meteo', 'mexique',
-    'croisiere', 'pancakes', 'erable', 'atlantique', 'quebec'
-  ]
+  words = ['crossword', 'generator']
 
-  g = Grid(words, 20)
+  if len(sys.argv) > 1:
+      word_file = open(sys.argv[1])
+      words = [line.strip() for line in word_file.readlines()]
+
+  g = Grid(words)
   print(g)
