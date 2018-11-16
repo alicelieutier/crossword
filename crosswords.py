@@ -4,6 +4,7 @@ Helper to create a grid of crosswords from a list of words
 import sys
 import random
 from functools import reduce
+from math import sqrt, floor
 
 class Grid:
   DOWN, ACCROSS = True, False
@@ -30,7 +31,7 @@ class Grid:
     avg_l = sum(word_lengths) // len(words)
     max_l = max(word_lengths)
 
-    size = max(avg_l * 2, max_l, len(words))
+    size = max(2 * avg_l, max_l, 2 * floor(sqrt(len(words) * avg_l)))
     return (size)
 
   def most_frequent_letter(self):
