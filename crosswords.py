@@ -9,14 +9,13 @@ class Grid:
   EMPTY = ' '
   MAX_NB_OF_TRIES = 8
 
-  def __init__(self, words=None, size=10):
-    if not words:
-      words = ['hello', 'world']
+  def __init__(self, words):
+    # calculate size from words
     self.words = self.arrange_words(words)
     self.letters = {}
     self.used_words = set()
     self.tries = 0
-    self.size = size
+    self.size = self.grid_size_from_words(words)
     self.grid = self.empty_grid(self.size)
 
     # seed the grid with an E (because E is a common letter..)
@@ -25,6 +24,13 @@ class Grid:
     }
     self.fill_grid()
 
+  def grid_size_from_words(self, words):
+    word_lengths = [len(w) for w in words]
+    avg_l = sum(word_lengths) // len(words)
+    max_l = max(word_lengths)
+
+    size = max(avg_l * 2, max_l, len(words))
+    return (size)
 
   def fill_grid(self):
     self.tries += 1
