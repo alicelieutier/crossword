@@ -3,6 +3,7 @@ Helper to create a grid of crosswords from a list of words
 """
 import sys
 import random
+from functools import reduce
 
 class Grid:
   DOWN, ACCROSS = True, False
@@ -10,7 +11,6 @@ class Grid:
   MAX_NB_OF_TRIES = 8
 
   def __init__(self, words):
-    # calculate size from words
     self.words = self.arrange_words(words)
     self.letters = {}
     self.used_words = set()
@@ -18,8 +18,9 @@ class Grid:
     self.size = self.grid_size_from_words(words)
     self.grid = self.empty_grid(self.size)
 
-    # seed the grid with an E (because E is a common letter..)
-    self.letters['E'] = {
+    # seed the grid with the most frequent letter from input
+    seed = self.most_frequent_letter()
+    self.letters[seed] = {
       (random.randint(1,self.size - 2), random.randint(1,self.size - 2))
     }
     self.fill_grid()
@@ -31,6 +32,17 @@ class Grid:
 
     size = max(avg_l * 2, max_l, len(words))
     return (size)
+
+  def most_frequent_letter(self):
+    counter = {}
+    for letter in ''.join(self.words):
+      counter.setdefault(letter, 0)
+      counter[letter] += 1
+    most_frequent = reduce(
+        lambda x, y: x if counter[x] > counter[y] else y,
+        counter.keys()
+    )
+    return (most_frequent)
 
   def fill_grid(self):
     self.tries += 1
