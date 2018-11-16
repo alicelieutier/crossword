@@ -18,6 +18,7 @@ crossword
 ```
 python crossword.py <your_word_file>
 ```
+This is a greedy algorithm, with some randomness to it, so each run gives a different solution. Jsut run it until you get an interesting one.
 
 It will display the words arranged in a grid, and possibly a list of unused words if it was not able to place them all.
 
